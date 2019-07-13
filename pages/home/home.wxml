@@ -1,0 +1,12 @@
+<scroll-view scroll-y class="scrollPage">
+  <image src='https://mmbiz.qpic.cn/mmbiz_jpg/8rvuMBprahpzoyatonKnG8rLribPjEtk8BqKRa657ut6qib2k2l3NXpCFSw073PfyxRibgExyqQlzFmFUjibqSAh7g/0?wx_fmt=jpeg' mode='widthFix' class='png' style='width:100%;height:486rpx'></image>
+  <view class='nav-list'>
+    <!-- <navigator open-type="navigate" hover-class='none' url="/pages/basics/{{item.name}}/{{item.name}}" class="nav-li bg-{{item.color}}" wx:for="{{elements}}" wx:key> -->
+    <navigator open-type="navigate" hover-class='none' url="" class="nav-li bg-red animation-slide-bottom" style="animation-delay: 1s">
+      <view class="nav-title">标题</view>
+      <view class="nav-name">Title</view>
+      <text class='cuIcon-comment'></text>
+    </navigator>
+  </view>
+  <view class='cu-tabbar-height'></view>
+</scroll-view>

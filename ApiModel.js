@@ -31,3 +31,7 @@ var CallApi = function(url, data = null, OnSuccess, OnFail = null, OnComplete = 
         complete: OnComplete
     })
 }
+
+module.exports = {
+    CallApi: CallApi
+}

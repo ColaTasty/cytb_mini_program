@@ -1,3 +1,7 @@
 {
-  "usingComponents":{}
+    "usingComponents": {
+        "page-home": "./../home/home",
+        "page-messages": "./../messages/messages",
+        "page-profile": "./../profile/profile"
+    }
 }

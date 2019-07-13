@@ -1,4 +1,4 @@
-// compontent/pages/messages/messages.js
+// pages/home/home.js
 Component({
     options: {
         addGlobalClass: true,

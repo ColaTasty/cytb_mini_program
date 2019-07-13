@@ -6,9 +6,9 @@ const APP = getApp()
 
 Page({
     data: {
-        pageName: "index",
+        pageName: "home",
         showRedDot: {
-            index: false,
+            home: false,
             messages: false,
             profile: false
         },

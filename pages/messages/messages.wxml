@@ -1,5 +1,2 @@
-<view class="container">
-  <view class="textContainer">
-    <text class="textStyle">{{text}}</text>
-  </view>
-</view>
+<!--compontent/pages/messages/messages.wxml-->
+<text>compontent/pages/messages/messages.wxml</text>
