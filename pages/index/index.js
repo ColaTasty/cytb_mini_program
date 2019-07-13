@@ -1,27 +1,40 @@
+var edusystem = require("../../utils/Edusystem.js");
+
 //index.js
 //获取应用实例
-var app = getApp()
+const APP = getApp()
+
 Page({
-  data: {
-    motto: 'Hello World wechat',
-    userInfo: {}
-  },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
-  onLoad: function () {
-    console.log('onLoad')
-    var that = this
-  	//调用应用实例的方法获取全局数据
-    app.getUserInfo(function(userInfo){
-      //更新数据
-      that.setData({
-        userInfo:userInfo
-      })
-      that.update()
-    })
-  }
+    data: {
+        pageName: "index",
+        showRedDot: {
+            index: false,
+            messages: false,
+            profile: false
+        },
+        canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    },
+
+    onLoad: function(options) {
+        console.log("options.redirect = " + (typeof(options.redirect) == "undefined" ? null : options.redirect));
+        if (typeof(options.redirect) !== "undefined") {
+            wx.navigateTo({
+                url: options.redirect,
+            })
+        }
+    },
+
+    onShow: function() {
+
+    },
+
+    onShareAppMessage: function(options) {},
+
+    TabChange: function(e) {
+        var _self = this;
+        var cur = e.currentTarget.dataset.cur;
+        _self.setData({
+            pageName: cur
+        })
+    }
 })

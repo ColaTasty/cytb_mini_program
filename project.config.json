@@ -1,0 +1,174 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": true,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"nodeModules": true,
+		"autoAudits": false
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.7.0",
+	"appid": "wx5401e991aa5b11ca",
+	"projectname": "CYTB-MiniProgram",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 20,
+			"list": [
+				{
+					"id": -1,
+					"name": "pages/bindEducationSystem/bindEducationSystem",
+					"pathName": "pages/bindEducationSystem/bindEducationSystem",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "pages/lessonTable/lessonTable",
+					"pathName": "pages/lessonTable/lessonTable",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "pages/electricityUsage/electricityUsage",
+					"pathName": "pages/electricityUsage/electricityUsage",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "pages/electricityUsageSubscribe/electricityUsageSubscribe",
+					"pathName": "pages/electricityUsageSubscribe/electricityUsageSubscribe",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "pages/todayLesson/todayLesson",
+					"pathName": "pages/todayLesson/todayLesson",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "pages/bindSetting/bindSetting",
+					"pathName": "pages/bindSetting/bindSetting",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "pages/mark/mark",
+					"pathName": "pages/mark/mark",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "pages/godDamnSystem/godDamnSystem",
+					"pathName": "pages/godDamnSystem/godDamnSystem",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "pages/lostAndFound/index/index",
+					"pathName": "pages/lostAndFound/index/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "pages/lostAndFound/new/new",
+					"pathName": "pages/lostAndFound/new/new",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "SingleItem pages/lostAndFound/index/index",
+					"pathName": "pages/lostAndFound/index/index",
+					"query": "singleItem=136"
+				},
+				{
+					"id": 11,
+					"name": "Item 32",
+					"pathName": "pages/lostAndFound/item/item",
+					"query": "itemId=32"
+				},
+				{
+					"id": -1,
+					"name": "pages/extraCreditSystem/extraCreditSystem",
+					"pathName": "pages/extraCreditSystem/extraCreditSystem",
+					"query": ""
+				},
+				{
+					"id": 13,
+					"name": "pages/index/index",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/ILOVEU/ILOVEU",
+					"pathName": "pages/ILOVEU/ILOVEU",
+					"query": "",
+					"scene": 1001
+				},
+				{
+					"id": -1,
+					"name": "pages/ILOVEU/current/current",
+					"pathName": "pages/ILOVEU/current/current",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/ILOVEU/write/write",
+					"pathName": "pages/ILOVEU/write/write",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/ILOVEU/write/sending",
+					"pathName": "pages/ILOVEU/write/sending",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 18,
+					"name": "pages/ILOVEU/myself/myself",
+					"pathName": "pages/ILOVEU/myself/myself",
+					"query": "statement=",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/secondHand/secondHand",
+					"pathName": "pages/secondHand/secondHand",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "测试",
+					"pathName": "pages/test/test",
+					"scene": null
+				}
+			]
+		}
+	}
+}
