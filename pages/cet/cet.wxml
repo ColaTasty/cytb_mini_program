@@ -1,0 +1,6 @@
+<!-- pages/cet/cet.wxml -->
+<wxs src="./../../utils/style.wxs" module="customStyle"></wxs>
+<nav-bar isBack="{{true}}" bgColor="{{navBarColor}}">
+    <view slot="backText">首页</view>
+    <view slot="content">四六级查询</view>
+</nav-bar>

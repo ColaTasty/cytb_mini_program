@@ -1,6 +1,7 @@
 <!-- index.wxml -->
-<!-- <nav-bar nav-title="城院贴吧小助手">
-</nav-bar> -->
+<nav-bar bgColor="bg-black">
+    <view slot="content">城院贴吧</view>
+</nav-bar>
 <block wx:if="{{pageName=='home'}}">
     <!-- <view>欢迎来到城院贴吧小助手！</view> -->
     <page-home></page-home>

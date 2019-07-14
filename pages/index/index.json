@@ -1,5 +1,6 @@
 {
     "usingComponents": {
+        "nav-bar": "./../../colorui/components/cu-custom",
         "page-home": "./../home/home",
         "page-messages": "./../messages/messages",
         "page-profile": "./../profile/profile"

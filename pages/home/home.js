@@ -1,4 +1,5 @@
 // pages/home/home.js
+var APP = getApp();
 Component({
     options: {
         addGlobalClass: true,
@@ -14,7 +15,7 @@ Component({
      * 组件的初始数据
      */
     data: {
-
+        featuresList: []
     },
 
     /**
@@ -22,5 +23,15 @@ Component({
      */
     methods: {
 
+    },
+
+    lifetimes: {
+        attached: function() {
+            var list = APP.customModule.HomePageFeatures();
+            var _self = this;
+            _self.setData({
+                featuresList: list
+            })
+        }
     }
 })

@@ -1,12 +1,27 @@
+<wxs src="./../../utils/style.wxs" module="customStyle" />
 <scroll-view scroll-y class="scrollPage">
   <image src='https://mmbiz.qpic.cn/mmbiz_jpg/8rvuMBprahpzoyatonKnG8rLribPjEtk8BqKRa657ut6qib2k2l3NXpCFSw073PfyxRibgExyqQlzFmFUjibqSAh7g/0?wx_fmt=jpeg' mode='widthFix' class='png' style='width:100%;height:486rpx'></image>
-  <view class='nav-list'>
-    <!-- <navigator open-type="navigate" hover-class='none' url="/pages/basics/{{item.name}}/{{item.name}}" class="nav-li bg-{{item.color}}" wx:for="{{elements}}" wx:key> -->
-    <navigator open-type="navigate" hover-class='none' url="" class="nav-li bg-red animation-slide-bottom" style="animation-delay: 1s">
-      <view class="nav-title">标题</view>
-      <view class="nav-name">Title</view>
-      <text class='cuIcon-comment'></text>
-    </navigator>
+  <view class="home-logo animation-fade">
+    <view class="flex justify-center">
+      <image src="./../src/贴吧logo.png" mode="widthFix" class="logo-content" />
+    </view>
   </view>
+  <view class="home-title text-center animation-fade" style="animation-delay:0.3s">城院贴吧小助手</view>
+  <!-- if typeof(featuresList) == 'undefinded' -->
+  <block wx:if="{{featuresList.length <= 0}}">
+    <view class="padding solid-bottom text-center">正在加载...</view>
+  </block>
+  <!-- else -->
+  <block wx:else>
+    <view class="padding"></view>
+    <view class='nav-list'>
+      <navigator wx:for="{{featuresList}}" wx:for-item="feature" wx:for-index="fidx" wx:key="title" open-type="navigate" hover-class='none' url="{{feature.url}}?bgColor={{feature.bgColor}}" class="nav-li {{feature.bgColor}} animation-slide-bottom" style="border:1px solid #fff;animation-delay: 0.{{fidx + 1}}s">
+        <view class="nav-title">{{feature.title}}</view>
+        <view class="nav-name">{{feature.name}}</view>
+        <text class='cuIcon-{{feature.icon}}'></text>
+      </navigator>
+    </view>
+  </block>
+  <!-- end if -->
   <view class='cu-tabbar-height'></view>
 </scroll-view>

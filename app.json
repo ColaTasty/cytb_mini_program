@@ -1,22 +1,23 @@
 {
-    "pages": [
-        "pages/index/index",
-        "pages/home/home",
-        "pages/messages/messages",
-        "pages/profile/profile",
-        "pages/logs/logs"
-    ],
-    "window": {
-        "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#fff",
-        "navigationBarTitleText": "WeChat",
-        "navigationStyle": "custom",
-        "navigationBarTextStyle": "black"
-    },
-    "permission": {
-        "scope.userLocation": {
-            "desc": "你的位置仅用于小程序内发送消息的定位"
-        }
-    },
-    "sitemapLocation": "sitemap.json"
+  "pages": [
+    "pages/index/index",
+    "pages/home/home",
+    "pages/messages/messages",
+    "pages/profile/profile",
+    "pages/logs/logs",
+    "pages/cet/cet"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置仅用于小程序内发送消息的定位"
+    }
+  },
+  "sitemapLocation": "sitemap.json"
 }
