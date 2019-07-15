@@ -1,0 +1,49 @@
+<!-- pages/cet/result/result.wxml -->
+<view class="cu-list menu sm-border margin-top">
+    <!-- 写作和翻译 -->
+    <view class="cu-item">
+        <view class="content">
+            <text class="cuIcon-title text-green"></text>
+            <text class="text-grey">写作和翻译</text>
+        </view>
+        <view class="action">
+            <text class="text-grey text-sm">{{result.write}}</text>
+        </view>
+    </view>
+    <!-- 听力 -->
+    <view class="cu-item">
+        <view class="content">
+            <text class="cuIcon-title text-green"></text>
+            <text class="text-grey">听力</text>
+        </view>
+        <view class="action">
+            <text class="text-grey text-sm">{{result.listen}}</text>
+        </view>
+    </view>
+    <!-- 阅读理解 -->
+    <view class="cu-item">
+        <view class="content">
+            <text class="cuIcon-title text-green"></text>
+            <text class="text-grey">阅读理解</text>
+        </view>
+        <view class="action">
+            <text class="text-grey text-sm">{{result.read}}</text>
+        </view>
+    </view>
+    <!-- 总分 -->
+    <view class="cu-item margin-top">
+        <view class="content">
+            <text class="cuIcon-title text-green"></text>
+            <text class="text-grey">总分</text>
+        </view>
+        <view class="action">
+            <text class="text-grey text-sm">{{result.total}}</text>
+        </view>
+    </view>
+    <!-- 查看排名 -->
+    <view class="cu-item arrow">
+        <button class="cu-btn content" bindtap="bindtap_GetRank">
+            <text class="text-grey">查看我在城院的排名</text>
+        </button>
+    </view>
+</view>

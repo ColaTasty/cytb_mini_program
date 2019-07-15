@@ -1,0 +1,6 @@
+<!-- compontent/copyright/index.wxml -->
+<view class="copyright">
+    <view class="text-center">
+        <text space="nbsp">{{year}} © 城院贴吧</text>
+    </view>
+</view>

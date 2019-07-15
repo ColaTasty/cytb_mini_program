@@ -4,3 +4,59 @@
     <view slot="backText">首页</view>
     <view slot="content">四六级查询</view>
 </nav-bar>
+<scroll-view scroll-y class="scrollPage need-copyright">
+    <view class="cu-bar bg-white">
+        <view class="action sub-title">
+            <text class="text-xl text-bold text-black">四六级查询</text>
+            <text class="text-ABC text-gray">CET4/6</text>
+            <!-- last-child选择器 -->
+        </view>
+    </view>
+    <view class="cu-bar {{alertMsg ? 'bg-red':'bg-white'}}">
+        <view class="action">
+            <text>{{topTips}}</text>
+        </view>
+    </view>
+    <!-- if haveGetResult -->
+    <block wx:if="{{!haveGetResult}}">
+        <view class="cu-form-group margin-top">
+            <view class="title">准考证号</view>
+            <input placeholder="15位准考证号" type="number" maxlength="15" bindinput="bindinput_Zkz"></input>
+            <text class="cuIcon-warnfill text-red" wx:if="{{errZkz}}"></text>
+        </view>
+        <view class="cu-form-group">
+            <view class="title" style="">姓名</view>
+            <input placeholder="考生姓名" bindinput="bindinput_Name"></input>
+            <text class="cuIcon-warnfill text-red" wx:if="{{errName}}"></text>
+        </view>
+        <view class="cu-form-group margin-top">
+            <view class="title">验证码</view>
+            <input placeholder="输入下图二维码" bindinput="bindinput_V"></input>
+            <text class="cuIcon-warnfill text-red" wx:if="{{errV}}"></text>
+            <button class="cu-btn bg-green shadow" bindtap="bindtap_GetVUrl">刷新</button>
+        </view>
+        <view class="cu-form-group padding flex justify-center">
+            <block wx:if="{{vUrl.length > 0}}">
+                <image src="{{vUrl}}" mode="widthFix" style="width:50%" />
+            </block>
+            <block wx:else>
+                <view class="text-center padding solids text-gray">验证码将出现在这</view>
+            </block>
+        </view>
+        <view class="padding flex flex-direction">
+            <button class="cu-btn bg-green lg" bindtap="bindtap_Search" loading="{{searching}}" disabled="{{!canSub}}">
+                <block wx:if="{{!searching}}">
+                    <text class="cuIcon-search"></text>
+                    查询
+                </block>
+                <block wx:else>正在查询</block>
+            </button>
+        </view>
+    </block>
+    <!-- else -->
+    <block wx:else>
+        <page-result result="{{result}}"></page-result>
+    </block>
+    <!-- end if -->
+    <copyright></copyright>
+</scroll-view>

@@ -1,5 +1,7 @@
 {
     "usingComponents": {
-        "nav-bar": "./../../colorui/components/cu-custom"
+        "nav-bar": "./../../colorui/components/cu-custom",
+        "page-result": "./result/result",
+        "copyright": "./../../component/copyright/index"
     }
 }

@@ -5,7 +5,26 @@ Page({
      * 页面的初始数据
      */
     data: {
-        navBarColor: "bg-black"
+        navBarColor: "bg-black",
+        errZkz: false,
+        errName: false,
+        errV: false,
+        valueZkz: "",
+        valueName: "",
+        valueV: "",
+        vUrl: "",
+        canSub: false,
+        searching: false,
+        strSearch: "查询",
+        alertMsg: false,
+        topTips: "四六级查询",
+        haveGetResult: false,
+        result: {
+            read: 333,
+            write: 222,
+            listen: 111,
+            total: 666
+        }
     },
 
     /**
@@ -68,5 +87,108 @@ Page({
      */
     onShareAppMessage: function() {
 
+    },
+
+    bindtap_GetVUrl: function() {
+        var _self = this;
+        if (_self.data.valueZkz.length !== 15) {
+            wx.showModal({
+                title: "准考证不正确",
+                content: "请输入15位准考证号",
+                showCancel: false,
+                confirmText: "好"
+            });
+            _self.setData({
+                errZkz: true
+            })
+            return;
+        }
+        var vUrl = "http://cet.neea.edu.cn/imgs/fe2e890687a04542b86ece1ad5270830.png";
+        _self.setData({
+            vUrl: vUrl
+        })
+    },
+
+    bindtap_RefreshV: function() {
+        this.bindtap_GetVUrl();
+    },
+
+    CheckCanSubmit: function() {
+        var _self = this;
+        var zkz = _self.data.valueZkz;
+        var name = _self.data.valueName;
+        var v = _self.data.valueV;
+        if (zkz.length > 0 && name.length > 0 && v.length > 0) {
+            _self.setData({
+                canSub: true
+            })
+        } else {
+            _self.setData({
+                canSub: false
+            })
+        }
+    },
+
+    bindinput_Zkz: function(e) {
+        var _self = this;
+        var value = e.detail.value;
+        _self.setData({
+            valueZkz: value
+        });
+        if (_self.data.errZkz) {
+            _self.setData({
+                errZkz: false
+            })
+        }
+        _self.CheckCanSubmit();
+    },
+
+    bindinput_Name: function(e) {
+        var _self = this;
+        var value = e.detail.value;
+        _self.setData({
+            valueName: value
+        });
+        if (_self.data.errName) {
+            _self.setData({
+                errName: false
+            })
+        }
+        _self.CheckCanSubmit();
+    },
+
+    bindinput_V: function(e) {
+        var _self = this;
+        var value = e.detail.value;
+        _self.setData({
+            valueV: value
+        });
+        if (_self.data.errV) {
+            _self.setData({
+                errV: false
+            })
+        }
+        _self.CheckCanSubmit();
+    },
+
+    RefreshV: function() {
+        this.bindtap_GetVUrl();
+    },
+
+    bindtap_Search: function() {
+        // 提交查询，不用验证完整性
+        var _self = this;
+        _self.setData({
+            searching: true,
+            canSub: false
+        });
+
+
+        setTimeout(() => {
+            _self.setData({
+                searching: false
+            });
+            _self.CheckCanSubmit();
+        }, 5000);
     }
 })

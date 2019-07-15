@@ -41,7 +41,7 @@ var CallApi = function(url, data = null, OnSuccess, OnFail = null, OnComplete = 
 }
 
 /**
- * 小程序功能
+ * 获取小程序主页功能
  */
 var HomePageFeatures = function() {
     // 调用api获取功能
@@ -79,7 +79,36 @@ var HomePageFeatures = function() {
     }];
     return featruesList;
 }
+
+/**
+ * 获取用户信息授权
+ * @param {Function} OnSuccess 
+ * @param {Function} OnFail 
+ */
+var AuthUserInfo = function(OnSuccess, OnFail = null, OnComplete = null) {
+    if (OnFail === null)
+        OnFail = InitialOnFail("获取用户信息失败！");
+    wx.authorize({
+        scope: 'scope.userInfo',
+        success: OnSuccess,
+        fail: OnFail,
+        complete: OnComplete
+    })
+}
+
+/**
+ * 从服务器获取用户信息
+ * @param {Function} OnSuccess 
+ * @param {Function} OnFail 
+ * @param {Function} OnComplete 
+ */
+var GetUserInfoFromServer = function(OnSuccess, OnFail = null, OnComplete = null) {
+    if (OnFail === null) {
+        OnFail = InitialOnFail("连接服务器失败，请稍后重试", "网络出错");
+    }
+}
 module.exports = {
     CallApi: CallApi,
-    HomePageFeatures: HomePageFeatures
+    HomePageFeatures: HomePageFeatures,
+    AuthUserInfo: AuthUserInfo
 }
