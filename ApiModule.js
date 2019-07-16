@@ -1,7 +1,7 @@
 /**
  * 开发者服务器地址
  */
-const host = "https://makia.dgcytb.com";
+const host = "https://makia.dgcytb.com/wxapp";
 /**
  * 默认失败方法
  * @param {String} msg 
@@ -9,7 +9,7 @@ const host = "https://makia.dgcytb.com";
  */
 const InitialOnFail = function(msg = "操作失败", title = "失败") {
     return function(res) {
-        console.log(res);
+        console.error({ title: title, msg: msg });
         wx.showModal({
             title: title,
             content: msg,
@@ -19,14 +19,17 @@ const InitialOnFail = function(msg = "操作失败", title = "失败") {
 }
 
 /**
+ * 向服务器发送请求
  * @param  {string} url
  * @param  {Object} data = null
  * @param  {Function} OnSuccess
  * @param  {Function} OnFail = null
  * @param  {Function} OnComplete = null
  */
-var CallApi = function(url, data = null, OnSuccess, OnFail = null, OnComplete = null, header = null) {
-    header["content-type"] = "application/x-www-form-urlencoded";
+var CallApi = function(url, data = null, OnSuccess, OnFail = null, OnComplete = null) {
+    var header = {
+        "content-type": "application/x-www-form-urlencoded"
+    };
     if (OnFail === null)
         OnFail = InitialOnFail("网络连接失败", "请检查网络连接后重试");
     wx.request({
@@ -81,6 +84,127 @@ var HomePageFeatures = function() {
 }
 
 /**
+ * 更新小程序
+ */
+var UpdateProgram = function() {
+    const updateManager = wx.getUpdateManager()
+
+    updateManager.onCheckForUpdate(function(res) {
+        // 请求完新版本信息的回调
+        console.log("是否有更新 : " + res.hasUpdate);
+    })
+
+    updateManager.onUpdateReady(function() {
+        wx.showModal({
+            title: '更新提示',
+            content: '新版本已经准备好，是否重启应用？',
+            success: res => {
+                if (res.confirm) {
+                    // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+                    updateManager.applyUpdate();
+                }
+            }
+        });
+    })
+
+    updateManager.onUpdateFailed(function() {
+        // 新版本下载失败
+    })
+}
+
+/**
+ * 检查用户是否用过小程序,
+ * true : 检查用户登录状态,
+ * false : 用户登录
+ */
+var CheckUserHaveUsed = function() {
+    var openid = wx.getStorageSync("openid");
+    return typeof(openid) !== "undefined" || openid.length > 0;
+}
+
+/**
+ * 检查用户登录状态
+ * @param {Function} AfterLogin 
+ */
+var CheckUserLoginStatus = function(AfterLogin = null) {
+    wx.showLoading({
+        title: "正在检查登录",
+        mask: true,
+        // 正在检查登录
+        success: function() {
+            wx.checkSession({
+                success: function() {
+                    console.log("用户已登录");
+                },
+                fail: function() {
+                    console.log("用户登录态失效，将重新登录");
+                    // 进行用户登录
+                    UserLogin(AfterLogin);
+                },
+                complete: function() {
+                    wx.hideLoading();
+                }
+            })
+        }
+    });
+}
+
+/**
+ * 用户登录小程序
+ * @param {Function} OnSuccess 
+ * @param {Function} OnFail 
+ * @param {Function} AfterLogin
+ */
+var UserLogin = function(AfterLogin = null) {
+    wx.showLoading({
+        title: "正在登录",
+        mask: true,
+        // 正在登录
+        success: function() {
+            wx.login({
+                success: function(res) {
+                    // if res.code
+                    if (res.code) {
+                        // 发送请求
+                        CallApi(
+                            "/login/" + res.code,
+                            null,
+                            // 发送请求成功
+                            function(res) {
+                                if (!res.data.isOK) {
+                                    console.error("用户登录失败[res : " + res.data + "]");
+                                    return;
+                                } else {
+                                    console.log("用户登录成功[openid : " + res.data.openId + "]");
+                                    wx.setStorage({
+                                        key: "openId",
+                                        data: res.data.openId,
+                                        success: AfterLogin
+                                    });
+                                }
+                            },
+                            // 发送请求失败
+                            InitialOnFail("网络连接出错，请手动重启小程序", "用户登录失败"),
+                        );
+                    } else {
+                        console.error("登录码获取失败");
+                        wx.showModal({
+                            title: "用户登录失败",
+                            content: "为了不影响你的使用，请手动重启小程序",
+                            showCancel: false,
+                            confirmText: "好的"
+                        })
+                    }
+                },
+                complete: function() {
+                    wx.hideLoading();
+                }
+            })
+        }
+    })
+}
+
+/**
  * 获取用户信息授权
  * @param {Function} OnSuccess 
  * @param {Function} OnFail 
@@ -110,5 +234,13 @@ var GetUserInfoFromServer = function(OnSuccess, OnFail = null, OnComplete = null
 module.exports = {
     CallApi: CallApi,
     HomePageFeatures: HomePageFeatures,
-    AuthUserInfo: AuthUserInfo
+    // 登录
+    UserLogin: UserLogin,
+    CheckUserHaveUsed: CheckUserHaveUsed,
+    CheckUserLoginStatus: CheckUserLoginStatus,
+    // 更新
+    UpdateProgram: UpdateProgram,
+    // 用户信息
+    AuthUserInfo: AuthUserInfo,
+    GetUserInfoFromServer: GetUserInfoFromServer
 }

@@ -33,13 +33,20 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 1,
 			"list": [
 				{
 					"id": 0,
 					"name": "CET4",
 					"pathName": "pages/cet/cet",
 					"query": "bgColor=bg-gradual-blue",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "主页",
+					"pathName": "pages/index/index",
+					"query": "",
 					"scene": null
 				}
 			]

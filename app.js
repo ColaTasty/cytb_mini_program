@@ -10,7 +10,15 @@ App({
                 this.globalData.Custom = custom;
                 this.globalData.CustomBar = custom.bottom + custom.top - e.statusBarHeight;
             }
-        })
+        });
+        // 检查更新
+        APP_MODULE.UpdateProgram();
+        // 用户登录
+        if (APP_MODULE.CheckUserHaveUsed()) {
+            APP_MODULE.CheckUserLoginStatus()
+        } else {
+            APP_MODULE.UserLogin();
+        }
     },
     /**
      * 小程序自定义模型
