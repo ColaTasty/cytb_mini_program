@@ -8,7 +8,10 @@ Component({
      * 组件的属性列表
      */
     properties: {
-
+        featuresList: {
+            type: Array,
+            value: []
+        }
     },
 
     /**
@@ -27,11 +30,7 @@ Component({
 
     lifetimes: {
         attached: function() {
-            var list = APP.customModule.HomePageFeatures();
-            var _self = this;
-            _self.setData({
-                featuresList: list
-            })
+
         }
     }
 })

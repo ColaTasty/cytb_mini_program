@@ -32,6 +32,7 @@ var CallApi = function(url, data = null, OnSuccess, OnFail = null, OnComplete = 
     };
     if (OnFail === null)
         OnFail = InitialOnFail("网络连接失败", "请检查网络连接后重试");
+    console.log("Call API : " + host + url);
     wx.request({
         url: host + url,
         data: data,
@@ -44,12 +45,10 @@ var CallApi = function(url, data = null, OnSuccess, OnFail = null, OnComplete = 
 }
 
 /**
- * 获取小程序主页功能
+ * 获取测试用的主页列表
  */
-var HomePageFeatures = function() {
-    // 调用api获取功能
-    // do something
-    var featruesList = [{
+var GetTestHomeFeatures = function() {
+    return [{
         "title": "四六级查询",
         "name": "CET4/6",
         "url": "./../cet/cet",
@@ -80,7 +79,25 @@ var HomePageFeatures = function() {
         "bgColor": "bg-gradual-purple",
         "icon": "post"
     }];
-    return featruesList;
+}
+
+/**
+ * 获取小程序主页功能
+ * @param {Function} OnSuccess 
+ * @param {Function} OnFail 
+ */
+var HomePageFeatures = function(OnSuccess, OnFail = null) {
+    // 调用api获取功能
+    // do something
+    if (OnFail == null) {
+        OnFail = InitialOnFail("主页功能获取失败,请重启小程序重试");
+    }
+    CallApi(
+        "/home-page-features",
+        null,
+        OnSuccess,
+        OnFail
+    );
 }
 
 /**

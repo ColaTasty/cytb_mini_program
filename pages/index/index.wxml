@@ -4,7 +4,7 @@
 </nav-bar>
 <block wx:if="{{pageName=='home'}}">
     <!-- <view>欢迎来到城院贴吧小助手！</view> -->
-    <page-home></page-home>
+    <page-home featuresList="{{featuresList}}"></page-home>
 </block>
 <block wx:if="{{pageName=='messages'}}">
     <!-- <view>消息记录</view> -->
