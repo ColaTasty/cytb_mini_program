@@ -9,10 +9,10 @@
         <view class="action sub-title">
             <text class="text-xl text-bold text-black">四六级查询</text>
             <text class="text-ABC text-gray">CET4/6</text>
-            <!-- last-child选择器 -->
         </view>
     </view>
     <view class="cu-bar {{alertMsg ? 'bg-red':'bg-white'}}">
+        <!-- <notice-bar text="{{topTips}}" mode="closeable"></notice-bar> -->
         <view class="action">
             <text>{{topTips}}</text>
         </view>
@@ -58,5 +58,17 @@
         <page-result result="{{result}}"></page-result>
     </block>
     <!-- end if -->
+    <!-- 通知 Dialog -->
+    <view class="cu-modal {{canUse?'':'show'}}">
+        <view class="cu-dialog">
+            <view class="cu-bar bg-white justify-end">
+                <view class="content text-red">功能不可用</view>
+            </view>
+            <view class="padding-xl"><text space="nbsp">{{serviceMsg}}</text></view>
+            <view class="cu-bar bg-white">
+                <view class="action text-green margin-0 flex-sub" bindtap="bindtap_Exit">确定</view>
+            </view>
+        </view>
+    </view>
     <copyright></copyright>
 </scroll-view>

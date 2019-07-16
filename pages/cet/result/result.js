@@ -11,10 +11,12 @@ Component({
         result: {
             type: Object,
             value: {
-                read: 110,
-                write: 120,
-                listen: 130,
-                total: 360
+                name: "测试员",
+                school: "东莞理工学院城市学院",
+                read: 0,
+                write: 1,
+                listen: 2,
+                total: 3
             }
         }
     },

@@ -1,4 +1,5 @@
 // pages/cet/cet.js
+const CET_MODULE = require("cetModule.js");
 Page({
 
     /**
@@ -18,13 +19,19 @@ Page({
         strSearch: "查询",
         alertMsg: false,
         topTips: "四六级查询",
+        canUse: true,
+        serviceMsg: "",
         haveGetResult: false,
         result: {
-            read: 333,
-            write: 222,
-            listen: 111,
-            total: 666
-        }
+            name: "测试员",
+            school: "东莞理工学院城市学院",
+            read: 0,
+            write: 1,
+            listen: 2,
+            total: 3
+        },
+
+        dd: undefined
     },
 
     /**
@@ -32,12 +39,46 @@ Page({
      */
     onLoad: function(options) {
         var _self = this;
+        // 检测标题栏颜色
         console.log("options.bgColor = " + (typeof(options.bgColor) !== "undefined" ? options.bgColor : null));
         if (typeof(options.bgColor) !== "undefined") {
             _self.setData({
                 navBarColor: options.bgColor
             })
         }
+        // 获取初始值
+        wx.showLoading({
+            title: "正在连接"
+        });
+        CET_MODULE.GetCetInit(
+            function(res) {
+                // 请求成功
+                if (res.data.isOK) {
+                    _self.setData({
+                        dd: res.data.dd,
+                        topTips: res.data.dd.subn
+                    })
+                }
+                // 请求失败
+                else {
+                    _self.setData({
+                        alertMsg: true,
+                        topTips: res.data.msg
+                    })
+                }
+                // 若是功能不可用
+                if (!res.data.config.canUse) {
+                    _self.setData({
+                        canUse: false,
+                        serviceMsg: res.data.config.msg
+                    })
+                }
+            },
+            null,
+            function() {
+                wx.hideLoading();
+            }
+        )
     },
 
     /**
@@ -190,5 +231,11 @@ Page({
             });
             _self.CheckCanSubmit();
         }, 5000);
+    },
+
+    bindtap_Exit: function() {
+        wx.navigateBack({
+            delta: 1
+        })
     }
 })

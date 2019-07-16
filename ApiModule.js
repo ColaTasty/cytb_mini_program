@@ -86,7 +86,7 @@ var GetTestHomeFeatures = function() {
  * @param {Function} OnSuccess 
  * @param {Function} OnFail 
  */
-var HomePageFeatures = function(OnSuccess, OnFail = null) {
+var GetHomePageFeatures = function(OnSuccess, OnFail = null) {
     // 调用api获取功能
     // do something
     if (OnFail == null) {
@@ -250,7 +250,8 @@ var GetUserInfoFromServer = function(OnSuccess, OnFail = null, OnComplete = null
 }
 module.exports = {
     CallApi: CallApi,
-    HomePageFeatures: HomePageFeatures,
+    GetHomePageFeatures: GetHomePageFeatures,
+    InitialOnFail: InitialOnFail,
     // 登录
     UserLogin: UserLogin,
     CheckUserHaveUsed: CheckUserHaveUsed,

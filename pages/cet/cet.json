@@ -2,6 +2,7 @@
     "usingComponents": {
         "nav-bar": "./../../colorui/components/cu-custom",
         "page-result": "./result/result",
-        "copyright": "./../../component/copyright/index"
+        "copyright": "./../../component/copyright/index",
+        "notice-bar": "./../../component/noticebar/index"
     }
 }

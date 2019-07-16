@@ -1,7 +1,27 @@
 <!-- pages/cet/result/result.wxml -->
 <view class="cu-list menu sm-border margin-top">
-    <!-- 写作和翻译 -->
+    <!-- 姓名 -->
+    <view class="cu-item margin-top">
+        <view class="content">
+            <text class="cuIcon-title text-green"></text>
+            <text class="text-grey">姓名</text>
+        </view>
+        <view class="action">
+            <text class="text-grey text-sm">{{result.name}}</text>
+        </view>
+    </view>
+    <!-- 学校 -->
     <view class="cu-item">
+        <view class="content">
+            <text class="cuIcon-title text-green"></text>
+            <text class="text-grey">学校</text>
+        </view>
+        <view class="action">
+            <text class="text-grey text-sm">{{result.school}}</text>
+        </view>
+    </view>
+    <!-- 写作和翻译 -->
+    <view class="cu-item margin-top">
         <view class="content">
             <text class="cuIcon-title text-green"></text>
             <text class="text-grey">写作和翻译</text>

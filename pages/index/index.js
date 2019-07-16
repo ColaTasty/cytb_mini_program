@@ -26,7 +26,7 @@ Page({
             })
         }
         // 获取主页功能列表
-        APP.customModule.HomePageFeatures(
+        APP.customModule.GetHomePageFeatures(
             // 请求成功
             function(res) {
                 // 获取成功
