@@ -1,6 +1,7 @@
 <!-- index.wxml -->
-<nav-bar bgColor="bg-black">
+<nav-bar bgColor="bg-gray" isBack="{{needBack}}">
     <view slot="content">城院贴吧</view>
+    <view slot="backText">返回</view>
 </nav-bar>
 <block wx:if="{{pageName=='home'}}">
     <!-- <view>欢迎来到城院贴吧小助手！</view> -->
@@ -15,23 +16,23 @@
     <page-profile></page-profile>
 </block>
 <!-- tarbar -->
-<view class="cu-bar tabbar bg-black shadow foot">
-    <view class="action {{pageName=='home'?'text-green':'text-gray'}}" data-cur="home" bindtap="TabChange">
-        <view class="cuIcon-homefill">
+<view class="cu-bar tabbar bg-gray shadow foot">
+    <view class="action {{pageName=='home'?'text-green':'text-black'}}" data-cur="home" bindtap="TabChange">
+        <view class="cuIcon-home{{pageName=='home'?'fill':''}}">
             <view class="cu-tag badge" wx:if="{{showRedDot.home}}"></view>
         </view>
-        首页
+        <text space="nbsp">首页</text>
     </view>
-    <view class="action {{pageName=='messages'?'text-green':'text-gray'}}" data-cur="messages" bindtap="TabChange">
-        <view class="cuIcon-commentfill">
+    <view class="action {{pageName=='messages'?'text-green':'text-black'}}" data-cur="messages" bindtap="TabChange">
+        <view class="cuIcon-comment{{pageName=='messages'?'fill':''}}">
             <view class="cu-tag badge" wx:if="{{showRedDot.messages}}"></view>
         </view>
-        消息
+        <text space="nbsp">消息</text>
     </view>
-    <view class="action {{pageName=='profile'?'text-green':'text-gray'}}" data-cur="profile" bindtap="TabChange">
-        <view class="cuIcon-my">
+    <view class="action {{pageName=='profile'?'text-green':'text-black'}}" data-cur="profile" bindtap="TabChange">
+        <view class="cuIcon-my{{pageName=='profile'?'fill':''}}">
             <view class="cu-tag badge" wx:if="{{showRedDot.profile}}"></view>
         </view>
-        我的
+        <text space="nbsp">我的</text>
     </view>
 </view>

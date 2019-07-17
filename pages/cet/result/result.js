@@ -1,5 +1,6 @@
 // pages/cet/result/result.js
 const APP = getApp();
+const APP_MODULE = APP.customModule;
 Component({
     options: {
         addGlobalClass: true
@@ -36,7 +37,7 @@ Component({
             wx.getSetting({
                 success(res) {
                     var auth = res.authSetting;
-                    // if !auth["scope.userInfo"]
+                    // 还未授权
                     if (!auth["scope.userInfo"]) {
                         wx.showModal({
                             title: "请求授权",
@@ -45,18 +46,17 @@ Component({
                             confirmText: "前去授权",
                             success: function(e) {
                                 if (e.confirm) {
-                                    APP.customMdule.AuthUserInfo(
-                                        function() {
-                                            // 授权成功
-                                        }
+                                    APP_MODULE.AuthUserInfo(
+                                        // 授权成功
+                                        function() {}
                                     );
                                 }
                             }
                         })
                     }
-                    // else auth["scope.userInfo"]
+                    // 已授权
                     else {
-                        APP.customMdule.GetUserInfoFromServer(function(res) {
+                        APP_MODULE.GetUserInfoFromServer(function(res) {
                             // 信息获取成功
                         });
                     }

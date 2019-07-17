@@ -1,10 +1,10 @@
 <!-- pages/cet/cet.wxml -->
 <wxs src="./../../utils/style.wxs" module="customStyle"></wxs>
-<nav-bar isBack="{{true}}" bgColor="{{navBarColor}}">
+<nav-bar isBack="{{true}}" bgColor="bg-gradual-blue">
     <view slot="backText">首页</view>
     <view slot="content">四六级查询</view>
 </nav-bar>
-<scroll-view scroll-y class="scrollPage need-copyright">
+<scroll-view scroll-y class="scrollPage">
     <view class="cu-bar bg-white">
         <view class="action sub-title">
             <text class="text-xl text-bold text-black">四六级查询</text>
@@ -31,9 +31,11 @@
         </view>
         <view class="cu-form-group margin-top">
             <view class="title">验证码</view>
-            <input placeholder="输入下图二维码" bindinput="bindinput_V"></input>
+            <input placeholder="输入下图二维码" value="{{valueV}}" bindinput="bindinput_V"></input>
             <text class="cuIcon-warnfill text-red" wx:if="{{errV}}"></text>
-            <button class="cu-btn bg-green shadow" bindtap="bindtap_GetVUrl">刷新</button>
+            <button class="cu-btn bg-green shadow" bindtap="bindtap_GetVUrl" loading="{{loadingV}}" disabled="{{!canRefreshV}}">
+                {{refreshV}}
+            </button>
         </view>
         <view class="cu-form-group padding flex justify-center">
             <block wx:if="{{vUrl.length > 0}}">
@@ -47,7 +49,7 @@
             <button class="cu-btn bg-green lg" bindtap="bindtap_Search" loading="{{searching}}" disabled="{{!canSub}}">
                 <block wx:if="{{!searching}}">
                     <text class="cuIcon-search"></text>
-                    查询
+                    {{strSearch}}
                 </block>
                 <block wx:else>正在查询</block>
             </button>
@@ -56,6 +58,9 @@
     <!-- else -->
     <block wx:else>
         <page-result result="{{result}}"></page-result>
+        <view class="padding flex flex-direction margin-top">
+            <button class="cu-btn bg-green lg" bindtap="bindtap_BackSearch">返回查询</button>
+        </view>
     </block>
     <!-- end if -->
     <!-- 通知 Dialog -->
@@ -64,11 +69,13 @@
             <view class="cu-bar bg-white justify-end">
                 <view class="content text-red">功能不可用</view>
             </view>
-            <view class="padding-xl"><text space="nbsp">{{serviceMsg}}</text></view>
+            <view class="padding-xl">
+                <text space="nbsp">{{serviceMsg}}</text>
+            </view>
             <view class="cu-bar bg-white">
                 <view class="action text-green margin-0 flex-sub" bindtap="bindtap_Exit">确定</view>
             </view>
         </view>
     </view>
-    <copyright></copyright>
 </scroll-view>
+<copyright></copyright>

@@ -114,14 +114,7 @@
     text-align-last: justify;
 }
 
-.need-copyright {
-    position: relative;
-}
-
 .copyright {
     width: 100%;
-    position: absolute;
-    bottom: 0px;
     height: 10vh;
-    padding-top: 10px;
 }

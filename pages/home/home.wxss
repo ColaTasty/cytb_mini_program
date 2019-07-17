@@ -23,11 +23,5 @@
     z-index: 10;
     top: 24%;
     font-size: 18px;
-    color: #dddddd;
+    color: #eeeeee;
 }
-
-
-/* #logo-box {
-    position: relative;
-    top: 0;
-} */

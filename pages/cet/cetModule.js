@@ -23,6 +23,84 @@ var GetCetInit = function(OnSuccess, OnFail = null, OnComplete = null) {
     );
 }
 
+/**
+ * 请求验证码
+ * @param {Object} data 
+ * @param {Function} OnSuccess 
+ * @param {Function} OnFail 
+ * @param {Function} OnComplete 
+ */
+var GetCetVerifyImage = function(data, OnSuccess, OnFail = null, OnComplete = null) {
+    if (OnFail == null) {
+        OnFail = APP_MODULE.InitialOnFail("连接服务器失败,请重试", "连接失败");
+    }
+    APP_MODULE.CallApi(
+        "/cet/verify",
+        data,
+        OnSuccess,
+        OnFail,
+        OnComplete
+    );
+}
+
+/**
+ * 将Cookie存入内存
+ * @param {String} data 
+ * @param {Function} OnSuccess 
+ * @param {Function} OnFail 
+ */
+var SetCetCookieToStorage = function(data, OnSuccess, OnFail = null) {
+    if (OnFail == null) {
+        OnFail = APP_MODULE.InitialOnFail("Cookie保存失败！请务必重试！");
+    }
+    wx.setStorage({
+        key: "cetCookie",
+        data: data,
+        success: OnSuccess,
+        fail: OnFail
+    })
+}
+
+/**
+ * 查询成绩
+ * @param {Object} data 
+ * @param {Function} OnSuccess 
+ * @param {Function} OnFail 
+ * @param {Function} OnComplete 
+ */
+var Query = function(data, OnSuccess, OnFail = null, OnComplete = null) {
+    if (OnFail == null) {
+        OnFail = APP_MODULE.InitialOnFail("服务器连接失败,请重试", "查询失败");
+    }
+    wx.getStorage({
+        key: "cetCookie",
+        success: function(res) {
+            var cookie = res.data;
+            data.cookie = cookie;
+            APP_MODULE.CallApi(
+                "/cet/query",
+                data,
+                OnSuccess,
+                OnFail,
+                OnComplete
+            )
+        },
+        fail: APP_MODULE.InitialOnFail("Cookie读取失败！请重新打开页面查询！")
+    });
+}
+
+/**
+ * 清除Cookie
+ */
+var CleanCetCookie = function() {
+    console.log("清除Cookie");
+    wx.removeStorageSync("cetCookie");
+}
+
 module.exports = {
-    GetCetInit: GetCetInit
+    GetCetInit: GetCetInit,
+    GetCetVerifyImage: GetCetVerifyImage,
+    SetCetCookieToStorage: SetCetCookieToStorage,
+    Query: Query,
+    CleanCetCookie: CleanCetCookie
 }

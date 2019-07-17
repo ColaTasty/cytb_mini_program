@@ -5,7 +5,8 @@
     "pages/messages/messages",
     "pages/profile/profile",
     "pages/logs/logs",
-    "pages/cet/cet"
+    "pages/cet/cet",
+    "pages/auth/auth"
   ],
   "window": {
     "backgroundTextStyle": "light",

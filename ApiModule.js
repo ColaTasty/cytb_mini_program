@@ -82,13 +82,56 @@ var GetTestHomeFeatures = function() {
 }
 
 /**
+ * 检查主页功能是否进入缓存
+ * @param {*} OnStill 
+ * @param {*} HaveClear 
+ */
+var CheckHomePageFeaturesCache = function(OnStill, HaveClear) {
+    var featuresList = wx.getStorageSync("homePageFeaturesList");
+    if (typeof(featuresList) === "object") {
+        var timestamps = (new Date()).getTime();
+        if (timestamps < featuresList.expire) {
+            console.log("从缓存中获取主页列表")
+            OnStill({ list: featuresList.list });
+        } else {
+            console.log("缓存中主页列表过期，将从服务器获取列表");
+            HaveClear();
+        }
+    } else {
+        console.log("不存在主页列表缓存，将从服务器获取列表");
+        HaveClear();
+    }
+}
+
+/**
+ * 主页功能进入缓存
+ * @param {Array} list 
+ * @param {Function} OnSuccess 
+ * @param {Function} OnFail 
+ */
+var SetHomePageFeaturesCache = function(data, OnSuccess, OnFail = null) {
+    if (OnFail == null) {
+        OnFail = function() {
+            console.log("主页列表缓存失败");
+            var f = InitialOnFail("主页列表缓存失败,不影响使用");
+            f();
+        };
+    }
+    wx.setStorage({
+        key: "homePageFeaturesList",
+        data: data,
+        success: OnSuccess,
+        fail: OnFail
+    });
+}
+
+/**
  * 获取小程序主页功能
  * @param {Function} OnSuccess 
  * @param {Function} OnFail 
  */
 var GetHomePageFeatures = function(OnSuccess, OnFail = null) {
     // 调用api获取功能
-    // do something
     if (OnFail == null) {
         OnFail = InitialOnFail("主页功能获取失败,请重启小程序重试");
     }
@@ -106,26 +149,33 @@ var GetHomePageFeatures = function(OnSuccess, OnFail = null) {
 var UpdateProgram = function() {
     const updateManager = wx.getUpdateManager()
 
+    wx.showLoading({
+        title: "正在检查更新"
+    });
+
     updateManager.onCheckForUpdate(function(res) {
         // 请求完新版本信息的回调
         console.log("是否有更新 : " + res.hasUpdate);
-    })
+        wx.hideLoading();
+        if (res.hasUpdate) {
 
-    updateManager.onUpdateReady(function() {
-        wx.showModal({
-            title: '更新提示',
-            content: '新版本已经准备好，是否重启应用？',
-            success: res => {
-                if (res.confirm) {
-                    // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
-                    updateManager.applyUpdate();
-                }
-            }
-        });
-    })
+            updateManager.onUpdateReady(function() {
+                wx.showModal({
+                    title: '更新提示',
+                    content: '新版本已经准备好，是否重启应用？',
+                    success: res => {
+                        if (res.confirm) {
+                            // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+                            updateManager.applyUpdate();
+                        }
+                    }
+                });
+            })
 
-    updateManager.onUpdateFailed(function() {
-        // 新版本下载失败
+            updateManager.onUpdateFailed(function() {
+                // 新版本下载失败
+            })
+        }
     })
 }
 
@@ -189,7 +239,9 @@ var UserLogin = function(AfterLogin = null) {
                             // 发送请求成功
                             function(res) {
                                 if (!res.data.isOK) {
-                                    console.error("用户登录失败[res : " + res.data + "]");
+                                    console.error("用户登录失败[res : " + res.data);
+                                    console.error(res.data);
+                                    console.error("]");
                                     return;
                                 } else {
                                     console.log("用户登录成功[openid : " + res.data.openId + "]");
@@ -222,13 +274,30 @@ var UserLogin = function(AfterLogin = null) {
 }
 
 /**
- * 获取用户信息授权
+ * 请求用户信息授权
  * @param {Function} OnSuccess 
  * @param {Function} OnFail 
  */
 var AuthUserInfo = function(OnSuccess, OnFail = null, OnComplete = null) {
-    if (OnFail === null)
-        OnFail = InitialOnFail("获取用户信息失败！");
+    if (OnFail === null) {
+        OnFail = function() {
+            wx.showModal({
+                title: "请求授权",
+                content: "这个功能需要你登录小程序^_^",
+                showCancel: false,
+                confirmText: "好",
+                success: function(e) {
+                    if (e.confirm) {
+                        var index_path = GetIndexPagePath();
+                        console.log("跳转 : " + index_path + "?redirect=profile");
+                        wx.navigateTo({
+                            url: index_path + "?redirect=profile"
+                        });
+                    }
+                }
+            })
+        };
+    }
     wx.authorize({
         scope: 'scope.userInfo',
         success: OnSuccess,
@@ -248,10 +317,42 @@ var GetUserInfoFromServer = function(OnSuccess, OnFail = null, OnComplete = null
         OnFail = InitialOnFail("连接服务器失败，请稍后重试", "网络出错");
     }
 }
+
+/**
+ * 获取主页的路径
+ */
+var GetIndexPagePath = function() {
+    var pageStack = getCurrentPages();
+
+    var currentPage = pageStack.pop();
+
+    var currentPath = currentPage.route.toString();
+
+    var pathStack = currentPath.split("/");
+
+    var pathLength = pathStack.length;
+
+    var indexPath = "pages/index/index";
+
+    var idx = 0;
+
+    while (idx < (pathLength - 1)) {
+        indexPath = "../" + indexPath;
+        idx++;
+        if (idx >= (pathLength - 1)) {
+            console.log("return : " + indexPath);
+            return indexPath;
+        }
+    }
+}
+
 module.exports = {
     CallApi: CallApi,
+    CheckHomePageFeaturesCache: CheckHomePageFeaturesCache,
+    SetHomePageFeaturesCache: SetHomePageFeaturesCache,
     GetHomePageFeatures: GetHomePageFeatures,
     InitialOnFail: InitialOnFail,
+    GetIndexPagePath: GetIndexPagePath,
     // 登录
     UserLogin: UserLogin,
     CheckUserHaveUsed: CheckUserHaveUsed,
