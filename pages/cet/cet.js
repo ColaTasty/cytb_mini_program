@@ -182,7 +182,7 @@ Page({
                 _self.setData({
                     loadingV: false
                 });
-                var timeout = 5;
+                var timeout = 3;
                 var i = setInterval(function() {
                     _self.setData({
                         refreshV: "刷新" + (timeout--) + "s"

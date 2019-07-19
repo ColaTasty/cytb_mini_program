@@ -1,0 +1,5 @@
+<!--pages/profile/about/about.wxml-->
+<nav-bar bgColor="bg-gray" isBack="{{true}}">
+    <view slot="content">关于城院贴吧小助手</view>
+    <view slot="backText">返回</view>
+</nav-bar>

@@ -43,10 +43,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 1,
 					"name": "主页",
 					"pathName": "pages/index/index",
-					"query": "",
+					"query": "redirect=profile",
 					"scene": null
 				}
 			]

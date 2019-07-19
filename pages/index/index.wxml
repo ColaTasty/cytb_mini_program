@@ -1,7 +1,7 @@
 <!-- index.wxml -->
-<nav-bar bgColor="bg-gray" isBack="{{needBack}}">
+<nav-bar bgColor="bg-gray" isCustom="{{needBack}}">
     <view slot="content">城院贴吧</view>
-    <view slot="backText">返回</view>
+    <!-- <view slot="backText">返回</view> -->
 </nav-bar>
 <block wx:if="{{pageName=='home'}}">
     <!-- <view>欢迎来到城院贴吧小助手！</view> -->
@@ -13,7 +13,7 @@
 </block>
 <block wx:if="{{pageName=='profile'}}">
     <!-- <view>我的信息</view> -->
-    <page-profile></page-profile>
+    <page-profile userInfo="{{userInfo}}"></page-profile>
 </block>
 <!-- tarbar -->
 <view class="cu-bar tabbar bg-gray shadow foot">

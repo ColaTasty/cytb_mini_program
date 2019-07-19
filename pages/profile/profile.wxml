@@ -1,3 +1,39 @@
-<!--compontent/pages/profile/profile.wxml-->
-<text>compontent/pages/profile/profile.wxml</text>
-<button open-type="getUserInfo">获取信息</button>
+<!-- compontent/pages/profile/profile.wxml -->
+<view class="cu-list menu-avatar margin-top">
+    <block wx:if="{{userInfo==undefined}}">
+        <button class="cu-item cu-btn" open-type="getUserInfo" bindgetuserinfo="bindgetuserinfo">
+            <view class="cu-avatar round lg cuIcon-myfill"></view>
+            <view class="content">
+                <view class="text-grey">点击登录授权</view>
+                <view class="text-gray text-sm flex">
+                    <text class="text-cut">授权登录开启更多功能</text>
+                </view>
+            </view>
+            <view class="action">
+                <text class="cuIcon-right"></text>
+            </view>
+        </button>
+    </block>
+    <block wx:else>
+        <view class="cu-item">
+            <view class="cu-avatar round lg" style="background-image:url({{userInfo.avatarUrl}});"></view>
+            <view class="content">
+                <view class="text-grey"><open-data type="userNickName"/></view>
+                <view class="text-gray text-sm flex">
+                    <text class="text-cut">欢迎你！</text>
+                </view>
+            </view>
+            <view class="action">
+                <text class="cuIcon-right"></text>
+            </view>
+        </view>
+    </block>
+</view>
+<view class="cu-list menu margin-top">
+    <view class="cu-item arrow">
+        <navigator class="content" hover-class="none" url="./../profile/about/about" open-type="navigate">
+            <text class="cuIcon-infofill text-grey"></text>
+            <text class="text-grey">关于城院贴吧小助手</text>
+        </navigator>
+    </view>
+</view>

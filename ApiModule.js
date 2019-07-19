@@ -194,20 +194,28 @@ var CheckUserHaveUsed = function() {
  * @param {Function} AfterLogin 
  */
 var CheckUserLoginStatus = function(AfterLogin = null) {
+
     wx.showLoading({
         title: "正在检查登录",
         mask: true,
+
         // 正在检查登录
         success: function() {
             wx.checkSession({
+
                 success: function() {
                     console.log("用户已登录");
+                    if (AfterLogin != null)
+                        AfterLogin();
                 },
+
                 fail: function() {
                     console.log("用户登录态失效，将重新登录");
+
                     // 进行用户登录
                     UserLogin(AfterLogin);
                 },
+
                 complete: function() {
                     wx.hideLoading();
                 }
@@ -230,16 +238,16 @@ var UserLogin = function(AfterLogin = null) {
         success: function() {
             wx.login({
                 success: function(res) {
-                    // if res.code
+                    // 登录成功
                     if (res.code) {
                         // 发送请求
                         CallApi(
                             "/login/" + res.code,
                             null,
-                            // 发送请求成功
+                            // 请求成功
                             function(res) {
                                 if (!res.data.isOK) {
-                                    console.error("用户登录失败[res : " + res.data);
+                                    console.error("用户登录失败[res : ");
                                     console.error(res.data);
                                     console.error("]");
                                     return;
@@ -252,10 +260,12 @@ var UserLogin = function(AfterLogin = null) {
                                     });
                                 }
                             },
-                            // 发送请求失败
+                            // 请求失败
                             InitialOnFail("网络连接出错，请手动重启小程序", "用户登录失败"),
                         );
-                    } else {
+                    }
+                    // 登录失败
+                    else {
                         console.error("登录码获取失败");
                         wx.showModal({
                             title: "用户登录失败",
@@ -281,6 +291,7 @@ var UserLogin = function(AfterLogin = null) {
 var AuthUserInfo = function(OnSuccess, OnFail = null, OnComplete = null) {
     if (OnFail === null) {
         OnFail = function() {
+            // 跳转至主页的个人信息页授权
             wx.showModal({
                 title: "请求授权",
                 content: "这个功能需要你登录小程序^_^",
@@ -346,6 +357,144 @@ var GetIndexPagePath = function() {
     }
 }
 
+/**
+ * 进入小程序的操作进行全局配置
+ * @param {Object} data 
+ * @param {Function} OnSuccess 
+ * @param {Function} OnFail 
+ */
+var SetStatmentsToStorage = function(data, OnSuccess = null, OnFail = null) {
+
+    if (OnFail == null) {
+        OnFail = InitialOnFail("记录操作失败！功能受限，请退出小程序重试");
+    }
+
+    wx.setStorage({
+        key: "statmentsConfig",
+        data: data,
+        success: function() {
+            console.log("记录操作成功！");
+            OnSuccess();
+        },
+        fail: OnFail
+    })
+}
+
+/**
+ * 读取进入小程序的操作
+ * @param {Function} OnSuccess 
+ * @param {Function} OnFail 
+ */
+var GetStatmentsFromStorage = function(OnSuccess, OnFail = null) {
+
+    if (OnFail == null) {
+        OnFail = InitialOnFail("读取操作失败！功能受限");
+    }
+
+    wx.getStorage({
+        key: "statmentsConfig",
+        success: function(res) {
+            console.log("读取操作成功！");
+            OnSuccess(res);
+        },
+        fail: OnFail
+    });
+}
+
+/**
+ * 清除登入操作
+ * @param {Function} OnSuccess 
+ * @param {Function} OnFail 
+ */
+var ClearStatments = function(OnSuccess = null, OnFail = null) {
+
+    if (OnFail == null) {
+        OnFail = InitialOnFail("清除登入操作失败,不影响使用^_^");
+    }
+
+    wx.removeStorage({
+        key: "statmentsConfig",
+        success: function() {
+            console.log("清除登入操作");
+            if (typeof(OnSuccess) == "function") {
+                OnSuccess();
+            }
+        },
+        fail: OnFail
+    })
+}
+
+/**
+ * 获取openId
+ * @param {Function} OnSuccess 
+ * @param {Function} OnFail 
+ */
+var GetOpenId = function(OnSuccess, OnFail = null) {
+    wx.getStorage({
+        key: "openId",
+        success: OnSuccess,
+        fail: function() {
+            if (OnFail == null) {
+                var f = InitialOnFail("openId从缓存获取失败，功能受限，请重启小程序");
+                f();
+            }
+        }
+    })
+}
+
+/**
+ * 解析用户信息
+ * @param {Object} user_info 
+ * @param {Function} OnSuccess 
+ * @param {Function} OnFail 
+ * @param {Function} OnComplete 
+ */
+var VerifyUserInfo = function(user_info, OnSuccess, OnFail = null, OnComplete = null) {
+    var rawData = "";
+    var signature = "";
+    var openId = "";
+    var err_function = InitialOnFail("传入参数有误，用户信息解析失败");
+    if (typeof(user_info.rawData) == "undefined") {
+        err_function();
+        console.log("传入参数 : ");
+        console.log(user_info);
+        return;
+    }
+    if (typeof(user_info.signature) == "undefined") {
+        err_function();
+        console.log("传入参数 : ");
+        console.log(user_info);
+        return;
+    }
+    if (OnFail == null) {
+        OnFail = InitialOnFail("用户信息解析请求失败,请等待服务器修复");
+    }
+    rawData = user_info.rawData;
+    signature = user_info.signature;
+    // 获取openId
+    GetOpenId(
+        function(res) {
+            openId = res.data;
+            // 刷新用户登录态
+            UserLogin(
+                // 发送解析用户信息请求
+                function() {
+                    CallApi(
+                        "/verify-user-info", {
+                            rawData: rawData,
+                            signature: signature,
+                            openId: openId
+                        },
+                        OnSuccess,
+                        OnFail,
+                        OnComplete
+                    );
+                }
+            );
+        }
+    )
+}
+
 module.exports = {
     CallApi: CallApi,
     CheckHomePageFeaturesCache: CheckHomePageFeaturesCache,
@@ -353,6 +502,10 @@ module.exports = {
     GetHomePageFeatures: GetHomePageFeatures,
     InitialOnFail: InitialOnFail,
     GetIndexPagePath: GetIndexPagePath,
+    SetStatmentsToStorage: SetStatmentsToStorage,
+    GetStatmentsFromStorage: GetStatmentsFromStorage,
+    ClearStatments: ClearStatments,
+    GetOpenId: GetOpenId,
     // 登录
     UserLogin: UserLogin,
     CheckUserHaveUsed: CheckUserHaveUsed,
@@ -361,5 +514,5 @@ module.exports = {
     UpdateProgram: UpdateProgram,
     // 用户信息
     AuthUserInfo: AuthUserInfo,
-    GetUserInfoFromServer: GetUserInfoFromServer
+    VerifyUserInfo: VerifyUserInfo
 }

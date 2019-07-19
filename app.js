@@ -15,7 +15,7 @@ App({
         APP_MODULE.UpdateProgram();
         // 用户登录
         if (APP_MODULE.CheckUserHaveUsed()) {
-            APP_MODULE.CheckUserLoginStatus()
+            APP_MODULE.CheckUserLoginStatus();
         } else {
             APP_MODULE.UserLogin();
         }

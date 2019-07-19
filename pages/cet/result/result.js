@@ -34,6 +34,7 @@ Component({
      */
     methods: {
         bindtap_GetRank: function() {
+            var _self = this;
             wx.getSetting({
                 success(res) {
                     var auth = res.authSetting;
@@ -46,19 +47,35 @@ Component({
                             confirmText: "前去授权",
                             success: function(e) {
                                 if (e.confirm) {
+                                    // 请求授权
                                     APP_MODULE.AuthUserInfo(
                                         // 授权成功
-                                        function() {}
+                                        function() {
+                                            wx.getUserInfo({
+                                                success: function(res) {
+                                                    var userInfo = res.userInfo;
+                                                    _self.setData({
+                                                        userInfo: userInfo
+                                                    })
+                                                }
+                                            })
+                                        }
                                     );
+                                    // 请求授权end
                                 }
                             }
                         })
                     }
                     // 已授权
                     else {
-                        APP_MODULE.GetUserInfoFromServer(function(res) {
-                            // 信息获取成功
-                        });
+                        wx.getUserInfo({
+                            success: function(res) {
+                                var userInfo = res.userInfo;
+                                _self.setData({
+                                    userInfo: userInfo
+                                })
+                            }
+                        })
                     }
                     // end if
                 }
