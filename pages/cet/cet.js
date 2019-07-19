@@ -311,7 +311,10 @@ Page({
                 }
                 // 查询失败
                 else {
-                    var f = APP.customModule.InitialOnFail(res.data.callback.error, "查询失败");
+                    if (typeof(res.data.callback.error) != "undefined")
+                        var f = APP.customModule.InitialOnFail(res.data.callback.error, "查询失败");
+                    else
+                        var f = APP.customModule.InitialOnFail(res.data.msg, "查询失败");
                     f();
                     if (_self.data.canRefreshV) {
                         _self.bindtap_RefreshV();
@@ -323,8 +326,6 @@ Page({
             // 请求完成
             function() {
                 _self.setData({
-                    valueName: "",
-                    valueZkz: "",
                     valueV: "",
                     vUrl: "",
                     searching: false

@@ -55,6 +55,10 @@ Page({
             }
             return;
         }
+    },
+
+    onShow: function() {
+        var _self = this;
         // 获取主页功能列表
         APP.customModule.CheckHomePageFeaturesCache(
             // 在缓存中获取列表
@@ -101,10 +105,6 @@ Page({
                 })
             }
         })
-    },
-
-    onShow: function() {
-
     },
 
     onReady: function() {
