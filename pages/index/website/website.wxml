@@ -1,0 +1,2 @@
+<!--pages/index/web-site/web-site.wxml-->
+<web-view src="https://makia.dgcytb.com/" />

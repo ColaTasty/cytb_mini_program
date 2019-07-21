@@ -83,10 +83,10 @@ var GetTestHomeFeatures = function() {
 
 /**
  * 检查主页功能是否进入缓存
- * @param {*} OnStill 
- * @param {*} HaveClear 
+ * @param {Function} OnStill 
+ * @param {Function} HaveCleared 
  */
-var CheckHomePageFeaturesCache = function(OnStill, HaveClear) {
+var CheckHomePageFeaturesCache = function(OnStill, HaveCleared) {
     var featuresList = wx.getStorageSync("homePageFeaturesList");
     if (typeof(featuresList) === "object") {
         var timestamps = (new Date()).getTime();
@@ -95,11 +95,11 @@ var CheckHomePageFeaturesCache = function(OnStill, HaveClear) {
             OnStill({ list: featuresList.list });
         } else {
             console.log("缓存中主页列表过期，将从服务器获取列表");
-            HaveClear();
+            HaveCleared();
         }
     } else {
         console.log("不存在主页列表缓存，将从服务器获取列表");
-        HaveClear();
+        HaveCleared();
     }
 }
 
@@ -174,6 +174,10 @@ var UpdateProgram = function() {
 
             updateManager.onUpdateFailed(function() {
                 // 新版本下载失败
+                wx.showModal({
+                    title: "更新失败",
+                    content: "检测到小程序有新版本，但是下载失败了，请手动重启小程序获取最新功能"
+                });
             })
         }
     })
@@ -315,18 +319,6 @@ var AuthUserInfo = function(OnSuccess, OnFail = null, OnComplete = null) {
         fail: OnFail,
         complete: OnComplete
     })
-}
-
-/**
- * 从服务器获取用户信息
- * @param {Function} OnSuccess 
- * @param {Function} OnFail 
- * @param {Function} OnComplete 
- */
-var GetUserInfoFromServer = function(OnSuccess, OnFail = null, OnComplete = null) {
-    if (OnFail === null) {
-        OnFail = InitialOnFail("连接服务器失败，请稍后重试", "网络出错");
-    }
 }
 
 /**

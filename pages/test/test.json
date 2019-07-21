@@ -1,0 +1,5 @@
+{
+    "usingComponents": {
+        "nav-bar": "./../../colorui/components/cu-custom"
+    }
+}

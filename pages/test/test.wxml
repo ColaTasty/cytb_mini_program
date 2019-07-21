@@ -1,0 +1,8 @@
+<!-- pages/test/test.wxml -->
+<nav-bar isBack="{{true}}">
+        <view slot="content">测试页</view>
+        <view slot="backText">返回</view>
+</nav-bar>
+<!-- <official-account></official-account> -->
+<!-- <ad unit-id="adunit-cd81414287f91224"></ad> -->
+<!-- <ad unit-id="adunit-aa29ae84a32013cc"></ad> -->

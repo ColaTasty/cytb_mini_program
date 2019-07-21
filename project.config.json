@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 2,
 			"list": [
 				{
 					"id": 0,
@@ -47,6 +47,12 @@
 					"name": "主页",
 					"pathName": "pages/index/index",
 					"query": "redirect=profile",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "测试",
+					"pathName": "pages/test/test",
 					"scene": null
 				}
 			]

@@ -7,7 +7,9 @@
     "pages/logs/logs",
     "pages/cet/cet",
     "pages/auth/auth",
-    "pages/profile/about/about"
+    "pages/profile/about/about",
+    "pages/index/website/website",
+    "pages/test/test"
   ],
   "window": {
     "backgroundTextStyle": "light",
