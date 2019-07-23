@@ -12,7 +12,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.7.0",
 	"appid": "wx5401e991aa5b11ca",
-	"projectname": "CYTB-MiniProgram",
+	"projectname": "cytb_mini_program",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {
