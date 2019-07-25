@@ -1,0 +1,72 @@
+<!-- pages/schedule/build/build.wxml -->
+<wxs module="scheduleStyle" src="./../../../utils/style.wxs"></wxs>
+<nav-bar isBack="{{true}}" bgColor="bg-gradual-blue">
+    <view slot="backText">返回</view>
+    <view slot="content">创建课表</view>
+</nav-bar>
+<scroll-view scroll-y class="scrollPage">
+    <view class="cu-bar bg-white">
+        <view class="action sub-title">
+            <text class="text-xl text-bold text-black">课表</text>
+            <text class="text-ABC text-gray">schedule</text>
+        </view>
+    </view>
+    <!-- 步骤条 -->
+    <view class="bg-white padding-bottom">
+        <view class="cu-steps">
+            <view class="cu-item {{step.passed?'text-blue':''}}" wx:for="{{steps}}" wx:for-item="step" wx:for-index="stepIdx" wx:key>
+                <text class="num" data-index="{{stepIdx + 1}}"></text>
+                {{step.name}}
+            </view>
+        </view>
+    </view>
+    <!-- 第一步 起表名 -->
+    <block wx:if="{{stepIdx == 0}}">
+        <view class="cu-bar bg-white margin-top">
+            <view class="action">
+                <text class="cuIcon-title text-green"></text>
+                给课程表起个名
+            </view>
+        </view>
+        <view class="cu-bar bg-white padding flex justify-center">
+            <view class="action" style="width:100%">
+                <input class="cytb-input" maxlength="15" value="{{schedule.name.length > 0 ? schedule.name:null}}" bindinput="bindinput_ScheduleName" placeholder="不超过15个字" type="text" />
+            </view>
+        </view>
+        <view class="cu-bar bg-white padding flex justify-center">
+            <view class="action">
+                <button class="cu-btn bg-green lg shadow" data-step-idx="{{(stepIdx + 1)}}" disabled="{{schedule.name.length <= 0}}" bindtap="bindtap_NextStep">
+                    下一步
+                </button>
+            </view>
+        </view>
+    </block>
+    <!-- 第二步 排课 -->
+    <block wx:if="{{stepIdx == 1}}">
+        <scroll-view scroll-x class="bg-white nav">
+            <view class="flex text-center">
+                <view class="cu-item flex-sub {{dayIdx==dayIndex?'text-green cur':''}}" wx:for="{{schedule.list}}" wx:key="day" wx:for-index="dayIndex" wx:for-item="day" bindtap="bindtap_TabSelect" data-day-idx="{{dayIndex}}">
+                    {{day.day}}
+                </view>
+            </view>
+        </scroll-view>
+    </block>
+    <!-- 第三步 预览 -->
+    <block wx:if="{{stepIdx == 2}}"></block>
+    <!-- 第四步 完成 -->
+    <block wx:if="{{stepIdx == 3}}"></block>
+</scroll-view>
+<copyright></copyright>
+<block wx:if="{{stepIdx == 1 || stepIdx == 2}}">
+    <view class="cu-tabbar-height"></view>
+    <view class="cu-bar bg-white tabbar border foot">
+        <view class="bg-orange submit" data-step-idx="{{(stepIdx - 1)}}" bindtap="bindtap_LastStep">
+            <text class="cuIcon-pullleft" style="font-size:18px"></text>
+              上一步
+        </view>
+        <view class="bg-green submit" data-step-idx="{{(stepIdx + 1)}}" bindtap="bindtap_NextStep">
+            下一步  
+            <text class="cuIcon-pullright" style="font-size:18px"></text>
+        </view>
+    </view>
+</block>

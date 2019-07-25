@@ -46,7 +46,7 @@
             </block>
         </view>
         <view class="padding flex flex-direction">
-            <button class="cu-btn bg-green lg" bindtap="bindtap_Search" loading="{{searching}}" disabled="{{!canSub}}">
+            <button class="cu-btn bg-green lg shadow" bindtap="bindtap_Search" loading="{{searching}}" disabled="{{!canSub}}">
                 <block wx:if="{{!searching}}">
                     <text class="cuIcon-search"></text>
                     {{strSearch}}
@@ -59,7 +59,7 @@
     <block wx:else>
         <page-result result="{{result}}"></page-result>
         <view class="padding flex flex-direction margin-top">
-            <button class="cu-btn bg-green lg" bindtap="bindtap_BackSearch">返回查询</button>
+            <button class="cu-btn bg-green lg shadow" bindtap="bindtap_BackSearch">返回查询</button>
         </view>
     </block>
     <!-- end if -->

@@ -7,7 +7,12 @@
     "pages/logs/logs",
     "pages/cet/cet",
     "pages/auth/auth",
-    "pages/profile/about/about"
+    "pages/profile/about/about",
+    "pages/test/test",
+    "pages/schedule/schedule",
+    "pages/schedule/build/build",
+    "pages/schedule/edit/edit",
+    "pages/schedule/view/view"
   ],
   "window": {
     "backgroundTextStyle": "light",

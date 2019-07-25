@@ -85,7 +85,28 @@ var Query = function(data, OnSuccess, OnFail = null, OnComplete = null) {
                 OnComplete
             )
         },
-        fail: APP_MODULE.InitialOnFail("Cookie读取失败！请重新打开页面查询！")
+        fail: function() {
+            wx.showModal({
+                title: "失败",
+                content: "Cookie读取失败！请重新打开页面查询！",
+                showCancel: false,
+                confirmText: "好的",
+                success: function(res) {
+                    if (res.confirm) {
+                        var pageStack = getCurrentPages();
+                        if (pageStack.length > 1) {
+                            wx.navigateBack({
+                                delta: 1
+                            });
+                        } else {
+                            wx.redirectTo({
+                                url: "./../index/index"
+                            })
+                        }
+                    }
+                }
+            })
+        }
     });
 }
 

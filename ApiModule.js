@@ -185,8 +185,10 @@ var UpdateProgram = function() {
  * false : 用户登录
  */
 var CheckUserHaveUsed = function() {
-    var openid = wx.getStorageSync("openid");
-    return typeof(openid) !== "undefined" || openid.length > 0;
+    var openid = wx.getStorageSync("openId");
+    var haveUsed = openid.length > 0;
+    console.log("用户是否使用过 : " + haveUsed);
+    return haveUsed;
 }
 
 /**
@@ -315,18 +317,6 @@ var AuthUserInfo = function(OnSuccess, OnFail = null, OnComplete = null) {
         fail: OnFail,
         complete: OnComplete
     })
-}
-
-/**
- * 从服务器获取用户信息
- * @param {Function} OnSuccess 
- * @param {Function} OnFail 
- * @param {Function} OnComplete 
- */
-var GetUserInfoFromServer = function(OnSuccess, OnFail = null, OnComplete = null) {
-    if (OnFail === null) {
-        OnFail = InitialOnFail("连接服务器失败，请稍后重试", "网络出错");
-    }
 }
 
 /**

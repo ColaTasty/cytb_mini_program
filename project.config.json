@@ -10,9 +10,9 @@
 		"autoAudits": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.7.0",
+	"libVersion": "2.7.7",
 	"appid": "wx5401e991aa5b11ca",
-	"projectname": "CYTB-MiniProgram",
+	"projectname": "cytb_mini_program",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {
@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 3,
 			"list": [
 				{
 					"id": 0,
@@ -47,6 +47,19 @@
 					"name": "主页",
 					"pathName": "pages/index/index",
 					"query": "redirect=profile",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "课表",
+					"pathName": "pages/schedule/schedule",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "创建课表",
+					"pathName": "pages/schedule/build/build",
 					"scene": null
 				}
 			]

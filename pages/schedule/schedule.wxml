@@ -1,0 +1,14 @@
+<!-- pages/schedule/schedule.wxml -->
+<nav-bar isBack="{{true}}" bgColor="bg-gradual-blue">
+    <view slot="backText">首页</view>
+    <view slot="content">课表</view>
+</nav-bar>
+<scroll-view scroll-y class="scrollPage">
+    <view class="cu-bar bg-white">
+        <view class="action sub-title">
+            <text class="text-xl text-bold text-black">课表</text>
+            <text class="text-ABC text-gray">schedule</text>
+        </view>
+    </view>
+</scroll-view>
+<copyright></copyright>
