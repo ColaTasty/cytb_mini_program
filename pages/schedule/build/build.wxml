@@ -1,5 +1,5 @@
 <!-- pages/schedule/build/build.wxml -->
-<wxs module="scheduleStyle" src="./../../../utils/style.wxs"></wxs>
+<wxs module="scheduleStyle" src="./../schedule.wxs"></wxs>
 <nav-bar isBack="{{true}}" bgColor="bg-gradual-blue">
     <view slot="backText">返回</view>
     <view slot="content">创建课表</view>
@@ -7,7 +7,7 @@
 <scroll-view scroll-y class="scrollPage">
     <view class="cu-bar bg-white">
         <view class="action sub-title">
-            <text class="text-xl text-bold text-black">课表</text>
+            <text class="text-xl text-bold text-black">创建课表</text>
             <text class="text-ABC text-gray">schedule</text>
         </view>
     </view>
@@ -43,6 +43,12 @@
     </block>
     <!-- 第二步 排课 -->
     <block wx:if="{{stepIdx == 1}}">
+        <view class="cu-bar bg-white margin-top">
+            <view class="action">
+                <text class="cuIcon-title text-green"></text>
+                排课
+            </view>
+        </view>
         <scroll-view scroll-x class="bg-white nav">
             <view class="flex text-center">
                 <view class="cu-item flex-sub {{dayIdx==dayIndex?'text-green cur':''}}" wx:for="{{schedule.list}}" wx:key="day" wx:for-index="dayIndex" wx:for-item="day" bindtap="bindtap_TabSelect" data-day-idx="{{dayIndex}}">
@@ -50,6 +56,53 @@
                 </view>
             </view>
         </scroll-view>
+        <!-- 显示时间节点 -->
+        <block wx:for="{{schedule.list[dayIdx].timeList}}" wx:key wx:for-index="timeIdx" wx:for-item="timeNode">
+            <!-- 条件显示时间节点 -->
+            <!-- 显示合法的节点 -->
+            <block wx:if="{{scheduleStyle.IsLeagalTimeNode(timeNode)}}"></block>
+        </block>
+        <!-- 最多可添加5个 -->
+        <block wx:if="{{schedule.list[dayIdx].timeList.length < 5}}">
+            <view class="flex justify-center margin-top" bindtap="bindinput_AddClass">
+                <view class="cytb-schedule-add padding">
+                    <text class="cuIcon-add"></text>
+                    <view style="font-size:18px">点击添加课程</view>
+                </view>
+            </view>
+            <!-- 模态弹窗 -->
+            <view class="cu-modal {{showAddModal?'show':''}}">
+                <view class="cu-dialog">
+                    <view class="cu-bar bg-white justify-end">
+                        <view class="content">添加课程</view>
+                    </view>
+                    <view class="padding-xl">
+                        <view class="cu-form-group">
+                            <view class="title">课程名</view>
+                            <input placeholder="不超过15字" style="text-align:left" maxlength="15"></input>
+                        </view>
+                        <view class="cu-form-group">
+                            <view class="title">讲师</view>
+                            <input placeholder="" style="text-align:left"></input>
+                        </view>
+                        <view class="cu-form-group">
+                            <view class="title">教室</view>
+                            <input placeholder="" style="text-align:left"></input>
+                        </view>
+                    </view>
+                    <view class="cu-bar bg-white">
+                        <view class="action margin-0 flex-sub text-red" bindtap="bindtap_HideModal">
+                            取消
+                        </view>
+                        <!-- dd -->
+                        <view class="action margin-0 flex-sub text-green solid-left" bindtap="bindtap_HideModal">
+                            添加
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <!-- 模态弹窗 end -->
+        </block>
     </block>
     <!-- 第三步 预览 -->
     <block wx:if="{{stepIdx == 2}}"></block>
@@ -62,11 +115,31 @@
     <view class="cu-bar bg-white tabbar border foot">
         <view class="bg-orange submit" data-step-idx="{{(stepIdx - 1)}}" bindtap="bindtap_LastStep">
             <text class="cuIcon-pullleft" style="font-size:18px"></text>
-              上一步
+            上一步
         </view>
-        <view class="bg-green submit" data-step-idx="{{(stepIdx + 1)}}" bindtap="bindtap_NextStep">
-            下一步  
-            <text class="cuIcon-pullright" style="font-size:18px"></text>
-        </view>
+        <!-- 第二步 排课 -->
+        <block wx:if="{{stepIdx == 1}}">
+            <!-- 可以下一步 -->
+            <block wx:if="{{scheduleStyle.HaveAddedClass(schedule)}}">
+                <view class="bg-green submit" data-step-idx="{{(stepIdx + 1)}}" bindtap="bindtap_NextStep">
+                    下一步
+                    <text class="cuIcon-pullright" style="font-size:18px"></text>
+                </view>
+            </block>
+            <!-- 不可以下一步 -->
+            <block wx:else>
+                <view class="bg-gray submit">
+                    下一步
+                    <text class="cuIcon-pullright" style="font-size:18px"></text>
+                </view>
+            </block>
+        </block>
+        <!-- 第三步 预览 -->
+        <block wx:if="{{stepIdx == 2}}">
+            <view class="bg-green submit" data-step-idx="{{(stepIdx + 1)}}" bindtap="bindtap_NextStep">
+                下一步
+                <text class="cuIcon-pullright" style="font-size:18px"></text>
+            </view>
+        </block>
     </view>
 </block>

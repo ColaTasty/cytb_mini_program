@@ -13,7 +13,7 @@ Page({
             name: "起表名",
             passed: false
         }, {
-            name: "排课程",
+            name: "排课",
             passed: false
         }, {
             name: "预览",
@@ -25,6 +25,7 @@ Page({
         stepIdx: 0,
         schedule: {},
         dayIdx: 0,
+        showAddModal: false
     },
 
     /**
@@ -125,6 +126,18 @@ Page({
         var _self = this;
         _self.setData({
             dayIdx: dayIdx
+        })
+    },
+
+    bindinput_AddClass: function() {
+        this.setData({
+            showAddModal: true
+        })
+    },
+
+    bindtap_HideModal: function() {
+        this.setData({
+            showAddModal: false
         })
     }
 })

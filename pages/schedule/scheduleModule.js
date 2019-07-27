@@ -1,3 +1,6 @@
+/**
+ * 获取星期
+ */
 var GetWeekDays = function() {
     return [
         "星期一",
@@ -9,18 +12,25 @@ var GetWeekDays = function() {
 };
 
 /**
- * 获取默认课表
+ * 获取时间节点
  */
-var GetDefaultScheduleList = function() {
-    var item = {
+var GetTimeNode = function() {
+    return {
         start: 0,
         end: 0,
+        atWeeks: [],
         class: {
             name: "",
                 teacher: "",
                 room: ""
         }
     };
+}
+
+/**
+ * 获取默认课表
+ */
+var GetDefaultScheduleList = function() {
 
     var callBack = [];
 
@@ -31,9 +41,6 @@ var GetDefaultScheduleList = function() {
             day: weekDays[dayIdx]
         };
         var timeList = [];
-        for (var itemIdx = 0; itemIdx < 10; itemIdx++) {
-            timeList[itemIdx] = item;
-        }
         day.timeList = timeList;
         callBack.push(day);
     }
@@ -42,5 +49,6 @@ var GetDefaultScheduleList = function() {
 };
 
 module.exports = {
-    GetDefaultScheduleList: GetDefaultScheduleList
+    GetDefaultScheduleList: GetDefaultScheduleList,
+    GetTimeNode: GetTimeNode
 }

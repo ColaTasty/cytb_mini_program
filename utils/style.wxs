@@ -70,23 +70,6 @@ var RandomColor = function() {
     return colors[i];
 };
 
-/**
- * 
- * @param {Object} schedule 
- * @returns {string|null}
- */
-var ScheduleNameValue = function(schedule) {
-    var s_name = schedule.name;
-    var callback = "";
-    if (s_name.length > 0) {
-        callback = s_name;
-    } else {
-        callback = null;
-    }
-    return callback;
-}
-
 module.exports = {
-    RandomColor: RandomColor,
-    ScheduleNameValue: ScheduleNameValue
+    RandomColor: RandomColor
 };
