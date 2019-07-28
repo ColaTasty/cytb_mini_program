@@ -9,7 +9,6 @@
         "pages/auth/auth",
         "pages/profile/about/about",
         "pages/index/website/website",
-        "pages/test/test"
         "pages/test/test",
         "pages/schedule/schedule",
         "pages/schedule/build/build",
