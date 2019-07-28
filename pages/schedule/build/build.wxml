@@ -1,5 +1,5 @@
 <!-- pages/schedule/build/build.wxml -->
-<wxs module="scheduleStyle" src="./../schedule.wxs"></wxs>
+<wxs module="scheUtil" src="./../schedule.wxs"></wxs>
 <nav-bar isBack="{{true}}" bgColor="bg-gradual-blue">
     <view slot="backText">返回</view>
     <view slot="content">创建课表</view>
@@ -60,7 +60,7 @@
         <block wx:for="{{schedule.list[dayIdx].timeList}}" wx:key wx:for-index="timeIdx" wx:for-item="timeNode">
             <!-- 条件显示时间节点 -->
             <!-- 显示合法的节点 -->
-            <block wx:if="{{scheduleStyle.IsLeagalTimeNode(timeNode)}}"></block>
+            <block wx:if="{{scheUtil.IsLeagalTimeNode(timeNode)}}"></block>
         </block>
         <!-- 最多可添加5个 -->
         <block wx:if="{{schedule.list[dayIdx].timeList.length < 5}}">
@@ -78,7 +78,10 @@
                     </view>
                     <view class="padding-xl">
                         <view class="cu-form-group">
-                            <view class="title">课程名</view>
+                            <view class="title">
+                                课程名
+                                <text style="color:red">*</text>
+                            </view>
                             <input placeholder="不超过15字" style="text-align:left" maxlength="15"></input>
                         </view>
                         <view class="cu-form-group">
@@ -88,6 +91,14 @@
                         <view class="cu-form-group">
                             <view class="title">教室</view>
                             <input placeholder="" style="text-align:left"></input>
+                        </view>
+                        <view class="cu-form-group">
+                            <view class="title">开始时间</view>
+                            <picker bindchange="PickerChange" value="{{index}}" range="{{picker}}">
+                                <view class="picker">
+                                    {{index?picker[index]:'禁止换行，超出容器部分会以 ... 方式截断'}}
+                                </view>
+                            </picker>
                         </view>
                     </view>
                     <view class="cu-bar bg-white">
@@ -110,6 +121,7 @@
     <block wx:if="{{stepIdx == 3}}"></block>
 </scroll-view>
 <copyright></copyright>
+<!-- 在第二步和第三步显示的步骤按钮 -->
 <block wx:if="{{stepIdx == 1 || stepIdx == 2}}">
     <view class="cu-tabbar-height"></view>
     <view class="cu-bar bg-white tabbar border foot">
@@ -120,7 +132,7 @@
         <!-- 第二步 排课 -->
         <block wx:if="{{stepIdx == 1}}">
             <!-- 可以下一步 -->
-            <block wx:if="{{scheduleStyle.HaveAddedClass(schedule)}}">
+            <block wx:if="{{scheUtil.HaveAddedClass(schedule)}}">
                 <view class="bg-green submit" data-step-idx="{{(stepIdx + 1)}}" bindtap="bindtap_NextStep">
                     下一步
                     <text class="cuIcon-pullright" style="font-size:18px"></text>
