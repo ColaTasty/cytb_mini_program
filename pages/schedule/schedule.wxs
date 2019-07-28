@@ -1,0 +1,45 @@
+/**
+ * 
+ * @param node 
+ * @returns {boolean}
+ */
+var IsLeagalTimeNode = function(node) {
+    var _class = node.class;
+
+    var callback = _class.name.length > 0 && _class.teacher.length > 0 && _class.room.length > 0;
+
+    return callback;
+}
+
+var HaveAddedClass = function(schedule) {
+    var list = schedule.list;
+
+    var listIdx = 0;
+
+    var callback = false;
+
+    while (listIdx < list.length) {
+        var timeList = list[listIdx].timeList;
+
+        if (timeList.length > 0) {
+            callback = true;
+            break;
+        }
+
+        listIdx++;
+    }
+
+    return callback;
+}
+
+var _
+
+var GetStartTime = function(timeList) {
+    // 分离列表里其他结点已选的时间区间
+    var timeArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+}
+
+module.exports = {
+    IsLeagalTimeNode: IsLeagalTimeNode,
+    HaveAddedClass: HaveAddedClass
+}

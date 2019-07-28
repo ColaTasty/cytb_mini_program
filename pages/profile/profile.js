@@ -43,6 +43,12 @@ Component({
                     // 信息不完整
                     else {
                         console.log("信息不完整，信息获取失败");
+                        wx.showModal({
+                            title: "(⊙ˍ⊙)",
+                            content: "好像登录失败了，再点一次试试",
+                            confirmText: "好",
+                            showCancel: false
+                        })
                     }
 
                 }

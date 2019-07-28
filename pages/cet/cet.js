@@ -42,14 +42,14 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function(options) {
+    onLoad: function (options) {
         var _self = this;
         // 获取初始值
         wx.showLoading({
             title: "正在连接"
         });
         CET_MODULE.GetCetInit(
-            function(res) {
+            function (res) {
                 // 请求成功
                 if (res.data.isOK) {
                     _self.setData({
@@ -73,7 +73,7 @@ Page({
                 }
             },
             null,
-            function() {
+            function () {
                 wx.hideLoading();
             }
         )
@@ -82,53 +82,53 @@ Page({
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
-    onReady: function() {
+    onReady: function () {
 
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: function() {
+    onShow: function () {
 
     },
 
     /**
      * 生命周期函数--监听页面隐藏
      */
-    onHide: function() {
+    onHide: function () {
 
     },
 
     /**
      * 生命周期函数--监听页面卸载
      */
-    onUnload: function() {
+    onUnload: function () {
         CET_MODULE.CleanCetCookie();
     },
 
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
-    onPullDownRefresh: function() {
+    onPullDownRefresh: function () {
 
     },
 
     /**
      * 页面上拉触底事件的处理函数
      */
-    onReachBottom: function() {
+    onReachBottom: function () {
 
     },
 
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage: function() {
+    onShareAppMessage: function () {
 
     },
 
-    bindtap_GetVUrl: function() {
+    bindtap_GetVUrl: function () {
         var _self = this;
         var vUrl = "";
         var cookie = "";
@@ -141,26 +141,26 @@ Page({
             });
             _self.setData({
                 errZkz: true
-            })
+            });
             return;
         }
         // 请求验证码
         _self.setData({
             loadingV: true,
             canRefreshV: false
-        })
+        });
         CET_MODULE.GetCetVerifyImage({
                 zkz: _self.data.valueZkz
             },
             // 请求成功
-            function(res) {
+            function (res) {
                 // 获取成功
                 if (res.data.isOK) {
                     vUrl = res.data.callback.url;
                     cookie = res.data.callback.cookie;
                     CET_MODULE.SetCetCookieToStorage(
                         cookie,
-                        function() {
+                        function () {
                             _self.setData({
                                 vUrl: vUrl
                             });
@@ -178,20 +178,20 @@ Page({
             // 请求失败
             null,
             // 请求完成
-            function() {
+            function () {
                 _self.setData({
                     loadingV: false
                 });
                 var timeout = 3;
-                var i = setInterval(function() {
+                var i = setInterval(function () {
                     _self.setData({
                         refreshV: "刷新" + (timeout--) + "s"
-                    })
+                    });
                     if (timeout < 0) {
                         _self.setData({
                             refreshV: "刷新",
                             canRefreshV: true
-                        })
+                        });
                         clearInterval(i);
                     }
                 }, 1100);
@@ -199,11 +199,11 @@ Page({
         // 请求验证码end
     },
 
-    bindtap_RefreshV: function() {
+    bindtap_RefreshV: function () {
         this.bindtap_GetVUrl();
     },
 
-    CheckCanSubmit: function() {
+    CheckCanSubmit: function () {
         var _self = this;
         var zkz = _self.data.valueZkz;
         var name = _self.data.valueName;
@@ -220,7 +220,7 @@ Page({
         }
     },
 
-    bindinput_Zkz: function(e) {
+    bindinput_Zkz: function (e) {
         var _self = this;
         var value = e.detail.value;
         _self.setData({
@@ -234,7 +234,7 @@ Page({
         _self.CheckCanSubmit();
     },
 
-    bindinput_Name: function(e) {
+    bindinput_Name: function (e) {
         var _self = this;
         var value = e.detail.value;
         _self.setData({
@@ -248,7 +248,7 @@ Page({
         _self.CheckCanSubmit();
     },
 
-    bindinput_V: function(e) {
+    bindinput_V: function (e) {
         var _self = this;
         var value = e.detail.value;
         _self.setData({
@@ -262,11 +262,11 @@ Page({
         _self.CheckCanSubmit();
     },
 
-    RefreshV: function() {
+    RefreshV: function () {
         this.bindtap_GetVUrl();
     },
 
-    bindtap_Search: function() {
+    bindtap_Search: function () {
         // 提交查询，不用验证完整性
         var _self = this;
         var t = _self.CheckI();
@@ -275,7 +275,7 @@ Page({
                 title: "准考证错误",
                 content: "请检查准考证是否正确",
                 showCancel: false
-            })
+            });
             _self.bindtap_RefreshV();
             return;
         }
@@ -291,7 +291,7 @@ Page({
                 v: _self.data.valueV
             },
             // 请求成功
-            function(res) {
+            function (res) {
                 // 查询成功
                 if (res.data.isOK) {
                     var callback = res.data.callback;
@@ -303,15 +303,15 @@ Page({
                         write: callback.w,
                         listen: callback.l,
                         total: callback.s,
-                    }
+                    };
                     _self.setData({
                         result: result,
                         haveGetResult: true
-                    })
+                    });
                 }
                 // 查询失败
                 else {
-                    if (typeof(res.data.callback.error) != "undefined")
+                    if (typeof (res.data.callback.error) != "undefined")
                         var f = APP.customModule.InitialOnFail(res.data.callback.error, "查询失败");
                     else
                         var f = APP.customModule.InitialOnFail(res.data.msg, "查询失败");
@@ -324,7 +324,7 @@ Page({
             // 请求失败
             null,
             // 请求完成
-            function() {
+            function () {
                 _self.setData({
                     valueV: "",
                     vUrl: "",
@@ -338,7 +338,7 @@ Page({
                     if (timeout < 0) {
                         _self.setData({
                             strSearch: "查询"
-                        })
+                        });
                         _self.CheckCanSubmit();
                         clearInterval(i);
                     }
@@ -347,7 +347,7 @@ Page({
         // 查询结束end
     },
 
-    CheckI: function() {
+    CheckI: function () {
         var index = -1;
         var z = this.data.valueZkz.toUpperCase();
         var t = z.charAt(0);
@@ -373,13 +373,13 @@ Page({
         return null;
     },
 
-    bindtap_Exit: function() {
+    bindtap_Exit: function () {
         wx.navigateBack({
             delta: 1
         })
     },
 
-    bindtap_BackSearch: function() {
+    bindtap_BackSearch: function () {
         this.setData({
             haveGetResult: false,
             result: {
@@ -393,4 +393,4 @@ Page({
             }
         })
     }
-})
+});

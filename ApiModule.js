@@ -189,8 +189,10 @@ var UpdateProgram = function() {
  * false : 用户登录
  */
 var CheckUserHaveUsed = function() {
-    var openid = wx.getStorageSync("openid");
-    return typeof(openid) !== "undefined" || openid.length > 0;
+    var openId = wx.getStorageSync("openId");
+    var haveUsed = openId.length > 0;
+    console.log("用户是否使用过 : " + haveUsed);
+    return haveUsed;
 }
 
 /**

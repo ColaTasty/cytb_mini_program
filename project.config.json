@@ -1,61 +1,67 @@
 {
-	"description": "项目配置文件。",
-	"setting": {
-		"urlCheck": true,
-		"es6": true,
-		"postcss": true,
-		"minified": true,
-		"newFeature": true,
-		"nodeModules": true,
-		"autoAudits": false
-	},
-	"compileType": "miniprogram",
-	"libVersion": "2.7.0",
-	"appid": "wx5401e991aa5b11ca",
-	"projectname": "cytb_mini_program",
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
-	"condition": {
-		"search": {
-			"current": -1,
-			"list": []
-		},
-		"conversation": {
-			"current": -1,
-			"list": []
-		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
-		"game": {
-			"current": -1,
-			"list": []
-		},
-		"miniprogram": {
-			"current": 2,
-			"list": [
-				{
-					"id": 0,
-					"name": "CET4",
-					"pathName": "pages/cet/cet",
-					"query": "bgColor=bg-gradual-blue",
-					"scene": null
-				},
-				{
-					"id": 1,
-					"name": "主页",
-					"pathName": "pages/index/index",
-					"query": "redirect=profile",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "测试",
-					"pathName": "pages/test/test",
-					"scene": null
-				}
-			]
-		}
-	}
+    "description": "项目配置文件。",
+    "setting": {
+        "urlCheck": true,
+        "es6": true,
+        "postcss": true,
+        "minified": true,
+        "newFeature": true,
+        "nodeModules": true,
+        "autoAudits": false
+    },
+    "compileType": "miniprogram",
+    "libVersion": "2.7.7",
+    "appid": "wx5401e991aa5b11ca",
+    "projectname": "cytb_mini_program",
+    "simulatorType": "wechat",
+    "simulatorPluginLibVersion": {},
+    "condition": {
+        "search": {
+            "current": -1,
+            "list": []
+        },
+        "conversation": {
+            "current": -1,
+            "list": []
+        },
+        "plugin": {
+            "current": -1,
+            "list": []
+        },
+        "game": {
+            "current": -1,
+            "list": []
+        },
+        "miniprogram": {
+            "current": 3,
+            "list": [{
+                    "id": 0,
+                    "name": "CET4",
+                    "pathName": "pages/cet/cet",
+                    "query": "bgColor=bg-gradual-blue",
+                    "scene": null
+                },
+                {
+                    "id": 1,
+                    "name": "主页",
+                    "pathName": "pages/index/index",
+                    "query": "redirect=profile",
+                    "scene": null
+                },
+                {
+                    "id": -1,
+                    "name": "课表",
+                    "pathName": "pages/schedule/schedule",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "id": -1,
+                    "name": "创建课表",
+                    "pathName": "pages/schedule/build/build",
+                    "scene": null
+                }
+            ]
+        }
+    }
 }
